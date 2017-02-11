@@ -5,12 +5,21 @@
  */
 package chess;
 
+import java.util.Scanner;
+
 /**
  *
  * @author Jeff
  */
 public class Chessboard {
-    //char[][] board = new char[8][8];
+    /**
+     * when looping, i is the row, j is the column
+     */
+    /**
+     * White is Uppercase
+     * Black is lowercase
+     */
+    boolean whiteTurn = true;
     char[][] board = {
         {'R','N','B','Q','K','B','N','R'},
         {'P','P','P','P','P','P','P','P'},
@@ -21,17 +30,169 @@ public class Chessboard {
         {'p','p','p','p','p','p','p','p'},
         {'r','n','b','q','k','b','n','r'}
     };
-    public void move(int fromI, int fromJ, int toI, int toJ){
-        board[toI][toJ] = board[fromI][fromJ];
-        board[fromI][fromJ] = '-';
+    
+    public Chessboard(){
+        reset();
     }
-    public void display(){
+    
+    
+    public void move(int fromRow, int fromCol, int toRow, int toCol){
+        //Check if valid move
+        if(isValidMove(fromRow,fromCol,toRow,toCol)){
+            board[toRow][toCol] = board[fromRow][fromCol];
+            board[fromRow][fromCol] = '-';
+        }
+    }
+    public boolean isValidMove(int fromRow, int fromCol, int toRow, int toCol){
+        char fromChar = board[fromRow][fromCol];
+        //check if current player can move piece
+        
+        if(Character.isLowerCase(fromChar) && whiteTurn){
+            return false;
+        }
+        else if(Character.isUpperCase(fromChar) && !whiteTurn){
+            return false;
+        }
+        switch(fromChar){
+            case 'p': return pValidMove(fromRow,fromCol,toRow,toCol);
+            case 'P': return PValidMove(fromRow,fromCol,toRow,toCol);
+            case 'n': return nValidMove(fromRow,fromCol,toRow,toCol);
+            case 'N': return NValidMove(fromRow,fromCol,toRow,toCol);
+            case 'r': return rValidMove(fromRow,fromCol,toRow,toCol);
+            case 'R': return RValidMove(fromRow,fromCol,toRow,toCol);
+            case 'b': return bValidMove(fromRow,fromCol,toRow,toCol);
+            case 'B': return BValidMove(fromRow,fromCol,toRow,toCol);
+            case 'q': return qValidMove(fromRow,fromCol,toRow,toCol);
+            case 'Q': return QValidMove(fromRow,fromCol,toRow,toCol);
+            case 'k': return kValidMove(fromRow,fromCol,toRow,toCol);
+            case 'K': return KValidMove(fromRow,fromCol,toRow,toCol);
+            default: return false;
+        }
+        
+    }
+    public boolean pValidMove(int fromRow, int fromCol, int toRow, int toCol){
+        char fromChar = board[fromRow][fromCol];
+        char toChar = board[toRow][toCol];
+        int moveX = fromCol - toCol;
+        int moveY = fromRow - toRow;
+        //pawn is moving forward
+        if(moveX == 0){
+            if(moveY == 1){
+                if(toChar == '-')
+                    return true;
+            }
+            else if(moveY == 2){
+                if(fromCol == 6){
+                    if(toChar == '-'){
+                        return true;
+                    }
+                }
+            }
+        }
+        //pawn is attacking
+        else if( (moveX == 1 || moveX == -1) && (moveY == 1)){
+            if(toChar != '-' && Character.isUpperCase(toChar)){
+                return true;
+            }
+        }
+        
+        return false;
+    }    
+    public boolean PValidMove(int fromRow, int fromCol, int toRow, int toCol){
+        char fromChar = board[fromRow][fromCol];
+        char toChar = board[toRow][toCol];
+        int moveX = fromCol - toCol;
+        int moveY = fromRow - toRow;
+        //pawn is moving forward
+        if(moveX == 0){
+            if(moveY == 1){
+                if(toChar == '-')
+                    return true;
+            }
+            else if(moveY == 2){
+                if(fromCol == 6){
+                    if(toChar == '-'){
+                        return true;
+                    }
+                }
+            }
+        }
+        //pawn is attacking
+        else if( (moveX == 1 || moveX == -1) && (moveY == 1)){
+            if(toChar != '-' && Character.isLowerCase(toChar)){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    public boolean rValidMove(int fromRow, int fromCol, int toRow, int toCol){
+        return true;
+    }    
+    public boolean RValidMove(int fromRow, int fromCol, int toRow, int toCol){
+        return true;
+    }
+    public boolean nValidMove(int fromRow, int fromCol, int toRow, int toCol){
+        return true;
+    }    
+    public boolean NValidMove(int fromRow, int fromCol, int toRow, int toCol){
+        return true;
+    }
+    public boolean bValidMove(int fromRow, int fromCol, int toRow, int toCol){
+        return true;
+    }    
+    public boolean BValidMove(int fromRow, int fromCol, int toRow, int toCol){
+        return true;
+    }
+    public boolean qValidMove(int fromRow, int fromCol, int toRow, int toCol){
+        return true;
+    }    
+    public boolean QValidMove(int fromRow, int fromCol, int toRow, int toCol){
+        return true;
+    }
+    public boolean kValidMove(int fromRow, int fromCol, int toRow, int toCol){
+        return true;
+    }    
+    public boolean KValidMove(int fromRow, int fromCol, int toRow, int toCol){
+        return true;
+    }
+    
+    
+    public String display(){
+        StringBuilder builder = new StringBuilder("");
+        builder.append("  A B C D E F G H\n");
+        for(int i = 0; i < board.length; i++){
+            builder.append((i+1)).append(" ");
+            for(int j = 0; j < board[i].length; j++){
+                builder.append(board[i][j]).append(" ");
+            }
+            builder.append("\n");
+        }
+        return builder.toString();
+    }
+    public void reset(){
+        char[][] board = {
+            {'R','N','B','Q','K','B','N','R'},
+            {'P','P','P','P','P','P','P','P'},
+            {'-','-','-','-','-','-','-','-'},
+            {'-','-','-','-','-','-','-','-'},
+            {'-','-','-','-','-','-','-','-'},
+            {'-','-','-','-','-','-','-','-'},
+            {'p','p','p','p','p','p','p','p'},
+            {'r','n','b','q','k','b','n','r'}
+        };
+        this.board = board;
+    }
+    @Override
+    public String toString(){
+        StringBuilder builder = new StringBuilder("");
         for(int i = 0; i < board.length; i++){
             for(int j = 0; j < board[i].length; j++){
-                System.out.print(board[i][j] + " ");
+                builder.append(board[i][j] + " ");
             }
-            System.out.println("");
+            builder.append("\n");
         }
+        return builder.toString();
     }
     public static void main(String[] args){
         Chessboard chess = new Chessboard();
@@ -39,4 +200,5 @@ public class Chessboard {
         chess.move(1,0,3,0);
         chess.display();
     }
+
 }
