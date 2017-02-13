@@ -35,22 +35,43 @@ public class Chessboard {
         reset();
     }
     
-    
+    public void move(String[] userMove){
+        int fromCol= userMove[0].charAt(0) - 'a';
+        int fromRow  = userMove[0].charAt(1) - '1';
+        int toCol = userMove[1].charAt(0) - 'a';
+        int toRow = userMove[1].charAt(1) - '1';
+        move(fromRow, fromCol, toRow, toCol);
+    }
     public void move(int fromRow, int fromCol, int toRow, int toCol){
         //Check if valid move
         if(isValidMove(fromRow,fromCol,toRow,toCol)){
             board[toRow][toCol] = board[fromRow][fromCol];
             board[fromRow][fromCol] = '-';
+            whiteTurn = !whiteTurn;
         }
+    }
+    public boolean isValidMove(String[] userMove){
+        int fromCol= userMove[0].charAt(0) - 'a';
+        int fromRow  = userMove[0].charAt(1) - '1';
+        int toCol = userMove[1].charAt(0) - 'a';
+        int toRow = userMove[1].charAt(1) - '1';
+        System.out.println("FR: " + fromRow + " FC: " + fromCol);
+        System.out.println("TR: " + toRow + " TC: " + toCol);
+        return isValidMove(fromRow,fromCol,toRow,toCol);
     }
     public boolean isValidMove(int fromRow, int fromCol, int toRow, int toCol){
         char fromChar = board[fromRow][fromCol];
         //check if current player can move piece
         
         if(Character.isLowerCase(fromChar) && whiteTurn){
+            System.out.println("White trying to use black player's pieces");
+            
             return false;
         }
-        else if(Character.isUpperCase(fromChar) && !whiteTurn){
+        else if(Character.isUpperCase(fromChar) && (!whiteTurn)){
+            System.out.println(fromChar + " is Uppercase");
+            System.out.println("White turn = " + whiteTurn);
+            System.out.println("Black trying to do white player's pieces");
             return false;
         }
         switch(fromChar){
@@ -75,6 +96,7 @@ public class Chessboard {
         char toChar = board[toRow][toCol];
         int moveX = fromCol - toCol;
         int moveY = fromRow - toRow;
+            System.out.println("pvalid? " + moveX + " " + moveY);
         //pawn is moving forward
         if(moveX == 0){
             if(moveY == 1){
@@ -95,8 +117,7 @@ public class Chessboard {
                 return true;
             }
         }
-        
-        return false;
+        return true;
     }    
     public boolean PValidMove(int fromRow, int fromCol, int toRow, int toCol){
         char fromChar = board[fromRow][fromCol];
@@ -105,12 +126,12 @@ public class Chessboard {
         int moveY = fromRow - toRow;
         //pawn is moving forward
         if(moveX == 0){
-            if(moveY == 1){
+            if(moveY == -1){
                 if(toChar == '-')
                     return true;
             }
-            else if(moveY == 2){
-                if(fromCol == 6){
+            else if(moveY == -2){
+                if(fromCol == 2){
                     if(toChar == '-'){
                         return true;
                     }
@@ -118,13 +139,13 @@ public class Chessboard {
             }
         }
         //pawn is attacking
-        else if( (moveX == 1 || moveX == -1) && (moveY == 1)){
+        else if( (moveX == 1 || moveX == -1) && (moveY == -1)){
             if(toChar != '-' && Character.isLowerCase(toChar)){
                 return true;
             }
         }
         
-        return false;
+        return true;
     }
     public boolean rValidMove(int fromRow, int fromCol, int toRow, int toCol){
         return true;

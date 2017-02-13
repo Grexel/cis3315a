@@ -114,4 +114,44 @@ public class InputValidator {
         output.print(prompt);
         return input.nextLine();
     }
+    public String getStringFromList(String prompt, String[] choices){
+        while(true){
+            output.print(prompt);
+            String userChoice = input.nextLine();
+            for(String s : choices)
+            {
+                if(userChoice.equalsIgnoreCase(s)){
+                    return s;
+                }
+            }
+            output.println("Input not valid.");
+        }
+    }
+    public String[] getChessMove(String prompt){
+        while(true){
+            output.print(prompt);
+            String userInput = input.nextLine();
+            userInput = userInput.toLowerCase();
+            String[] moveArray = userInput.split(" ");
+            System.out.println(moveArray[0] + moveArray[1]);
+            //check if move is legit
+            if(validChessMoveString(moveArray[0]) && validChessMoveString(moveArray[1])){
+                return moveArray;
+            }
+            output.println("Input not valid.");
+        }
+    }
+    public boolean validChessMoveString(String s){
+        if(s != null && s.length() >= 2){
+            char letter = s.charAt(0);
+            //System.out.println("Letter is: " + letter + " : Number is");
+            char number = s.charAt(1);
+            if(letter >= 'a' && letter <= 'h'){
+                if(number >= '1' && number <= '8'){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

@@ -12,9 +12,9 @@ import java.util.Scanner;
  * @author Jeff
  */
 public class ChessUI {
-    public static final int NEW_GAME = 0;
-    public static final int NEW_USER = 1;
-    public static final int QUIT = 2;
+    public static final int NEW_GAME = 1;
+    public static final int NEW_USER = 2;
+    public static final int QUIT = 0;
     
     InputValidator input;
     Scanner sc;
@@ -37,7 +37,7 @@ public class ChessUI {
     }
     public void displayMainMenu(){
         System.out.println(NEW_GAME + ": New Game");
-        System.out.println(NEW_USER + ": New User");
+        //System.out.println(NEW_USER + ": New User");
         System.out.println(QUIT + ": Quit");
         System.out.println("");
     }
@@ -50,7 +50,38 @@ public class ChessUI {
         }
     }
     public void playGame(){
-        System.out.println(chessBoard.display());
+        boolean isPlaying = true;
+        String[] choices = {"m","q"};
+        while(isPlaying){
+            System.out.println(chessBoard.display());
+            if(chessBoard.whiteTurn){
+                System.out.print("White's turn. ");
+            }
+            else{
+                System.out.print("Black's turn. ");       
+            }
+            String choice = input.getStringFromList("(m)Move, (q)Quit:", choices);
+            if(choice.equalsIgnoreCase("m")){
+                move();
+            }
+            if(choice.equalsIgnoreCase("q")){
+                isPlaying = false;
+            }
+        }
+    }
+    public void move(){
+        boolean moveComplete = false;
+        while(!moveComplete){
+            System.out.println(chessBoard.display());
+            String[] userMove = input.getChessMove("Enter piece to move from-to i.e(a1 a5) ");
+            if(chessBoard.isValidMove(userMove)){
+                chessBoard.move(userMove);
+                moveComplete = true;
+            }
+            else{
+                System.out.println("Invalid Move.");
+            }
+        }
     }
     
     public static void main(String[] args) {
