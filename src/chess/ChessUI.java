@@ -74,6 +74,12 @@ public class ChessUI {
         while(!moveComplete){
             System.out.println(chessBoard.display());
             String[] userMove = input.getChessMove("Enter piece to move from-to i.e(a1 a5) ");
+            if(userMove == null){
+                boolean cancelMove = input.yn("Cancel Move?(y/n)");
+                if(cancelMove){
+                    break;
+                }
+            }
             if(chessBoard.isValidMove(userMove)){
                 chessBoard.move(userMove);
                 moveComplete = true;

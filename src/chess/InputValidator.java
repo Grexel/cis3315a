@@ -128,7 +128,6 @@ public class InputValidator {
         }
     }
     public String[] getChessMove(String prompt){
-        while(true){
             output.print(prompt);
             String userInput = input.nextLine();
             userInput = userInput.toLowerCase();
@@ -139,7 +138,7 @@ public class InputValidator {
                 return moveArray;
             }
             output.println("Input not valid.");
-        }
+            return null;
     }
     public boolean validChessMoveString(String s){
         if(s != null && s.length() >= 2){

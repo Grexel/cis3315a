@@ -55,8 +55,8 @@ public class Chessboard {
         int fromRow  = userMove[0].charAt(1) - '1';
         int toCol = userMove[1].charAt(0) - 'a';
         int toRow = userMove[1].charAt(1) - '1';
-        System.out.println("FR: " + fromRow + " FC: " + fromCol);
-        System.out.println("TR: " + toRow + " TC: " + toCol);
+        //System.out.println("FR: " + fromRow + " FC: " + fromCol);
+        //System.out.println("TR: " + toRow + " TC: " + toCol);
         return isValidMove(fromRow,fromCol,toRow,toCol);
     }
     public boolean isValidMove(int fromRow, int fromCol, int toRow, int toCol){
@@ -65,13 +65,10 @@ public class Chessboard {
         
         if(Character.isLowerCase(fromChar) && whiteTurn){
             System.out.println("White trying to use black player's pieces");
-            
             return false;
         }
         else if(Character.isUpperCase(fromChar) && (!whiteTurn)){
-            System.out.println(fromChar + " is Uppercase");
-            System.out.println("White turn = " + whiteTurn);
-            System.out.println("Black trying to do white player's pieces");
+            System.out.println("Black trying to use white player's pieces");
             return false;
         }
         switch(fromChar){
@@ -96,7 +93,6 @@ public class Chessboard {
         char toChar = board[toRow][toCol];
         int moveX = fromCol - toCol;
         int moveY = fromRow - toRow;
-            System.out.println("pvalid? " + moveX + " " + moveY);
         //pawn is moving forward
         if(moveX == 0){
             if(moveY == 1){
@@ -104,7 +100,7 @@ public class Chessboard {
                     return true;
             }
             else if(moveY == 2){
-                if(fromCol == 6){
+                if(fromRow == 6){
                     if(toChar == '-'){
                         return true;
                     }
@@ -117,7 +113,7 @@ public class Chessboard {
                 return true;
             }
         }
-        return true;
+        return false;
     }    
     public boolean PValidMove(int fromRow, int fromCol, int toRow, int toCol){
         char fromChar = board[fromRow][fromCol];
@@ -131,7 +127,7 @@ public class Chessboard {
                     return true;
             }
             else if(moveY == -2){
-                if(fromCol == 2){
+                if(fromRow == 1){
                     if(toChar == '-'){
                         return true;
                     }
@@ -145,7 +141,7 @@ public class Chessboard {
             }
         }
         
-        return true;
+        return false;
     }
     public boolean rValidMove(int fromRow, int fromCol, int toRow, int toCol){
         return true;
