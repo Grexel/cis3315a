@@ -28,7 +28,7 @@ public class ChessUI {
         boolean isRunning = true;
         while(isRunning){
             displayMainMenu();
-            int choice = input.getInt(0, 2);
+            int choice = input.getInt(0, 1);
             if(choice == QUIT){
                 break;
             }
@@ -39,7 +39,7 @@ public class ChessUI {
         System.out.println(NEW_GAME + ": New Game");
         //System.out.println(NEW_USER + ": New User");
         System.out.println(QUIT + ": Quit");
-        System.out.println("");
+        //System.out.println("");
     }
     public void chooseMainMenu(int choice){
         if(choice == NEW_GAME){
