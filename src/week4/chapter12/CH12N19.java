@@ -20,12 +20,25 @@ public class CH12N19 {
         //need bufferedReader of URL
         //read bytes if Character is whitespace clear word, add to count if 
         //word is empty
+        StringBuilder word = new StringBuilder("");
+        int wordCount = 0;
         try(BufferedInputStream bis = new BufferedInputStream(
                 new URL("http://cs.armstrong.edu/liang/data/Lincoln.txt").openStream())){
             while(bis.available() > 0){
                 char c = (char)bis.read();
+                if(Character.isLetterOrDigit(c)){
+                    word.append(c);
+                }
+                else{
+                    if(word.length() > 0){
+                        wordCount++;
+                    }
+                    word.setLength(0);
+                }
                 System.out.print(c);
             }
+            System.out.println("");
+            System.out.println("Word count = " + wordCount);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
