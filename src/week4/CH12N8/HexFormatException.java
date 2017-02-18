@@ -15,9 +15,7 @@ public class HexFormatException extends Exception {
         
     }
 
-    @Override
-    public String toString() {
-        return "HexFormatException: String contains non hexadecimal characters";
+    public HexFormatException(String message) {
+        super(message);
     }
-    
 }

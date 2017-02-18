@@ -8,7 +8,7 @@ package week4.CH12N8;
 import java.util.Scanner;
 
 /**
- *
+ * Testing HexFormatException 
  * @author JeffreyMiller
  */
 public class HexFormatExceptionTester {
@@ -19,7 +19,7 @@ public class HexFormatExceptionTester {
         try{
             System.out.println("Hex: " + hex + " = " + hexToDecimal(hex));
         }catch(HexFormatException hFE){
-            System.out.println(hFE);
+            System.out.println(hFE.getMessage());
         }
     }
     
@@ -42,6 +42,6 @@ public class HexFormatExceptionTester {
             return ch - '0';
         }
         else
-            throw new HexFormatException();
+            throw new HexFormatException("HexFormatException: String contains non hexadecimal characters");
     }
 }
