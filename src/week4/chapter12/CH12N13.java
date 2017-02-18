@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 /**
  * Count the characters, words, and lines in a file.
+ * pass filename in as an argument
  * @author JeffreyMiller
  */
 public class CH12N13 {
