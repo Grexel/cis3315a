@@ -6,12 +6,13 @@
 package week4.CH12N8;
 
 /**
- *
+ * Hex format exception for strings that contain non hexadecimal characters
  * @author JeffreyMiller
  */
 public class HexFormatException extends Exception {
 
     public HexFormatException() {
+        
     }
 
     @Override
