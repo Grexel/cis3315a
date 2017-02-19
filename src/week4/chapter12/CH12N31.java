@@ -6,6 +6,9 @@
 package week4.chapter12;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.net.URL;
 import java.util.Scanner;
 
@@ -16,7 +19,8 @@ import java.util.Scanner;
  * with yearly text files called "babynamerankingXXXX.txt" where XXXX is the year
  * 
  * The files lines are formatted as such:
- * rank#    Boyname     numberOfName    Girlname    numberOfName
+ * name,gender,number
+ * with names descending in popularity and genders separated, female then male
  * @author Jeff
  */
 public class CH12N31 {
@@ -37,31 +41,37 @@ public class CH12N31 {
         System.out.print("Enter the name: ");
         name = sc.nextLine();
         
-        try(BufferedInputStream bis = new BufferedInputStream(
-                new URL("http://www.ssa.gov/oact/babynames/babynameranking" + year + ".txt").openStream())){
-            while(bis.available() > 0){
-                char c = (char)bis.read();
+        int girlRank = 0;
+        int boyRank = 0;
+        try(BufferedReader br = new BufferedReader(new FileReader(new File("./names/yob" + year + ".txt")))){
+            while(br.ready()){
+                char c = (char)br.read();
                 stringBuilder.append(c);
                 if(c == '\n'){
-                    //recordDetails[0] = rank
-                    //recordDetails[1] = boyname
-                    //recordDetails[2] = numberOfBoys
-                    //recordDetails[3] = girlName
-                    //recordDetails[4] = numberOfGirls
-                    String[] recordDetails = stringBuilder.toString().split(" ");
+                    //recordDetails[0] = name
+                    //recordDetails[1] = gender
+                    //recordDetails[2] = number
+                    String[] recordDetails = stringBuilder.toString().split(",");
                     stringBuilder.setLength(0);
                     
-                    int rank = Integer.parseInt(recordDetails[0]);
+                    String recordGender = recordDetails[1];
                     if(gender.equalsIgnoreCase("m")){
-                        if(recordDetails[1].equalsIgnoreCase(name))
-                            nameRank = rank;
+                        boyRank++;
+                        if(recordDetails[0].equalsIgnoreCase(name)){
+                            nameRank = boyRank;
+                            break;
+                        }
                     }
                     if(gender.equalsIgnoreCase("f")){
-                        if(recordDetails[3].equalsIgnoreCase(name))
-                            nameRank = rank;
+                        girlRank++;
+                        if(recordDetails[0].equalsIgnoreCase(name)){
+                            nameRank = girlRank;
+                            break;
+                        }
                     }
                 }
-                System.out.print(c);
+                //this outputs the file as it is read
+                //System.out.print(c);
             }
             System.out.println("");
             if(nameRank == -1){
