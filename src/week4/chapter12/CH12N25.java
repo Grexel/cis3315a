@@ -21,6 +21,7 @@ import static week4.chapter12.CH12N24.createRandomFacultyRecord;
  * 
  * @author Jeff
  */
+
 /** CH12N24
  * Create a large dataset of 1000 records containing the following informaton:
  * each line contains - Firstname Lastname rank salary
