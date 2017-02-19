@@ -23,8 +23,16 @@ public class CH12N32 {
         
         int girlRank = 0;
         int boyRank = 0;
+        String headerLine = String.format("%6s%10s%10s%10s%10s%10s%10s%10s%10s%10s%10s",
+                "Year","Rank 1","Rank 2","Rank 3","Rank 4","Rank 5",
+                "Rank 1","Rank 2","Rank 3","Rank 4","Rank 5");
+        System.out.println(headerLine);
         for(int i = 2015; i > 2000; i--){
+            girlRank = 0;
+            boyRank = 0;
             try(BufferedReader br = new BufferedReader(new FileReader(new File("./names/yob" + i + ".txt")))){
+                String[] females = new String[5];
+                String[] males = new String[5];
                 while(br.ready()){
                     char c = (char)br.read();
                     stringBuilder.append(c);
@@ -37,18 +45,25 @@ public class CH12N32 {
 
                         String recordGender = recordDetails[1];
                         if(recordGender.equalsIgnoreCase("f")){
-                            girlRank++;
-                            if(girlRank <= 5){
-                               //add girl name to rank
+                            if(girlRank < 5){
+                                females[girlRank] = recordDetails[0];
                             }
+                            girlRank++;
                         }
                         if(recordGender.equalsIgnoreCase("m")){
+                            if(boyRank < 5){
+                                males[boyRank] = recordDetails[0];
+                            }
                             boyRank++;
                         }
                     }
                     //this outputs the file as it is read
                     //System.out.print(c);
                 }
+                String line = String.format("%6d%10s%10s%10s%10s%10s%10s%10s%10s%10s%10s",
+                        i,females[0],females[1],females[2],females[3],females[4],
+                        males[0],males[1],males[2],males[3],males[4]);
+                System.out.println(line);
             }catch(Exception e){
                 System.out.println(e.getMessage());
             }
