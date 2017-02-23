@@ -21,6 +21,7 @@ public class CH11N4 {
         System.out.println("Enter a sequence of numbers. Type 0 to end the sequence.");
         int input;
         ArrayList<Integer> intList = new ArrayList<>();
+        
         while((input = sc.nextInt()) != 0){
             intList.add(input);
         }

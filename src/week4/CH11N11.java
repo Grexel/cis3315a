@@ -31,6 +31,7 @@ public class CH11N11 {
         
     }
     public static void sort(ArrayList<Integer> list){
-        Collections.sort(list);
+        list.sort((integer, anotherInteger) -> integer.compareTo(anotherInteger));
+        //Collections.sort(list);
     }
 }
