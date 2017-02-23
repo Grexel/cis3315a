@@ -79,4 +79,8 @@ public class Complex {
         return "(" + getRealPart() + " + " + getImaginaryPart() + "i)";
     }
     
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+            return new Complex(this.getRealPart(),this.getImaginaryPart());
+    }
 }

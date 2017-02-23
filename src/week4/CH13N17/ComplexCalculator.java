@@ -13,7 +13,13 @@ import week4.CH13N16.Rational;
  * @author JeffreyMiller
  */
 public class ComplexCalculator {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CloneNotSupportedException{
+        Complex c1 = new Complex(3.5,5.5);
+        Complex c2 = (Complex)c1.clone();
+        System.out.println(c1 +"\n" + c2);
+        c2.setRealPart(-3.5);
+        c2.setImaginaryPart(1);
+        System.out.println(c1 +"\n" + c2);
         Scanner sc = new Scanner(System.in);
         double real1, imaginary1;
         double real2, imaginary2;
